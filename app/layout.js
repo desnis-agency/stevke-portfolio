@@ -1,12 +1,19 @@
+import "./globals.css";
+import AgentationDev from "./AgentationDev";
+
 export const metadata = {
-  title: "Stevke portfolio",
-  description: "Stevke portfolio",
+  title: "Stevan Stojanovic — Web Designer",
+  description:
+    "Portfolio of Stevan Stojanovic, web designer working with startups across the AI and tech industry.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <AgentationDev />
+      </body>
     </html>
   );
 }
