@@ -1,31 +1,42 @@
-.container {
+.page {
   width: 100%;
-  max-width: 1408px;
-  margin: 0 auto;
-  padding: 0 20px;
+}
+
+/* ============================================================
+   THE ONLY GRID lives on the container:
+   12 columns, 16px column gap, 16px L/R padding, max-width 1440, centered.
+   Structure everywhere is  body > section > container > blocks.
+   ============================================================ */
+.container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 16px;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 16px;
 }
 
 .dim {
   color: var(--dim);
 }
 
-/* ---------- Hero ---------- */
-.hero {
-  display: flex;
-  flex-direction: column;
-  gap: 36px;
-  padding: 88px 0 72px;
+/* ---------- HERO ---------- */
+.heroContainer {
+  composes: container;
+  padding-top: 185px;
+  padding-bottom: 377px;
 }
 
 .heroName {
+  grid-column: 3 / 4;
   line-height: 1.35;
 }
 
 .heroIntro {
+  grid-column: 7 / 10;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-width: 340px;
   color: var(--muted);
 }
 
@@ -35,37 +46,63 @@
   text-underline-offset: 3px;
 }
 
-/* ---------- Projects ---------- */
-.projects {
-  display: flex;
-  flex-direction: column;
-  gap: 72px;
-  margin-top: 24px;
+/* ---------- PROJECT (card) ---------- */
+.projectSection {
+  margin-bottom: 16px; /* 16px between stacked cards */
 }
 
-.project {
-  max-width: 1216px;
-  margin: 0 auto;
-  width: 100%;
+.cardContainer {
+  composes: container;
+  /* Showcase cards break out of the 1440 cap and span nearly full width,
+     keeping a constant 16px gap on both sides at every screen size. */
+  max-width: none;
+  width: calc(100% - 32px);
+  background: var(--card);
+  border-radius: 8px;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  row-gap: 32px;
+  align-content: start;
 }
 
 .projTitle {
+  grid-column: 3 / 11; /* columns 3–10 */
   color: #fff;
-  margin-bottom: 12px;
-  padding-inline: 6%;
 }
 
-.projMedia img {
+/* --- Image block that clips edge-to-edge slides --- */
+.projMediaClean {
+  grid-column: 3 / 11; /* columns 3–10 = exact Figma image frame */
+}
+
+.mediaBlock {
+  position: relative;
+  aspect-ratio: 934 / 580;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 16px 164px 0 rgba(0, 0, 0, 0.35);
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.slideActive {
+  composes: slide;
+  opacity: 1;
 }
 
 .projFooter {
+  grid-column: 3 / 11; /* columns 3–10 */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 12px;
-  padding-inline: 6%;
 }
 
 .dots {
@@ -77,12 +114,18 @@
 .dot {
   width: 6px;
   height: 6px;
-  border-radius: 50%;
-  background: #3a3838;
+  border-radius: 0;
+  background: #ffffff26;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: background 0.2s ease;
 }
 
 .dotActive {
-  background: #fff;
+  background: #ffffff;
 }
 
 .tags {
@@ -103,108 +146,108 @@
   line-height: normal;
 }
 
-/* ---------- Artworks ---------- */
-.artHeading {
-  text-align: center;
+/* ---------- TUNE / ARTWORK HEADING (grid columns 7–9) ---------- */
+.tuneHeadingRow {
+  composes: container;
+  padding-top: 130px;
+  padding-bottom: 130px;
+}
+
+.tuneHeading {
+  grid-column: 7 / 10;
   color: var(--muted);
-  margin: 120px auto 40px;
-  max-width: 340px;
 }
 
-.artGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+/* ---------- TUNE ARTWORK CARDS (not on the column grid) ---------- */
+.tuneContainer {
+  width: calc(100% - 32px);
+  margin-inline: auto;
+  display: flex;
   gap: 16px;
-  max-width: 1408px;
-  margin: 0 auto;
 }
 
-.artItem {
+.tuneCard {
+  flex: 1;
+  background: var(--card);
+  border-radius: 8px;
+  aspect-ratio: 696 / 880;
   display: flex;
-  flex-direction: column;
   align-items: center;
-}
-
-.artMedia {
-  width: 100%;
-  display: flex;
   justify-content: center;
 }
 
-.artMedia img {
-  width: 500px;
-  max-width: 100%;
-  height: auto;
-  border-radius: 6px;
+.tuneImg {
+  width: 71.8%; /* 500 / 696, matches the Figma image inside the card */
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 0;
 }
 
-.artFooter {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 12px;
-}
-
-/* ---------- Footer ---------- */
-.footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+/* ---------- FOOTER ---------- */
+.footerContainer {
+  composes: container;
+  padding-top: 96px;
+  padding-bottom: 40px;
   color: var(--dim);
-  padding: 96px 0 40px;
+  align-items: baseline;
 }
 
-/* ---------- Tablet & up ---------- */
-@media (min-width: 768px) {
-  .container {
-    padding: 0 32px;
-  }
-  .artHeading {
-    margin-top: 160px;
-  }
+.footerContainer > :nth-child(1) {
+  grid-column: 3 / span 3;
+}
+.footerContainer > :nth-child(2) {
+  grid-column: 6 / span 3;
+  text-align: center;
+}
+.footerContainer > :nth-child(3) {
+  grid-column: 9 / span 3;
+  text-align: right;
 }
 
-/* ---------- Desktop ---------- */
-@media (min-width: 1024px) {
-  .hero {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 0;
-    padding: 160px 0 90px;
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 1023px) {
+  .heroContainer {
+    padding-top: 96px;
+    padding-bottom: 120px;
   }
   .heroName {
-    grid-column: 3 / span 3;
+    grid-column: 1 / span 6;
   }
   .heroIntro {
-    grid-column: 7 / span 4;
+    grid-column: 1 / -1;
+    max-width: 480px;
   }
   .projTitle,
+  .projMediaClean,
   .projFooter {
-    padding-inline: 13%;
+    grid-column: 1 / -1;
+  }
+  .tuneHeading {
+    grid-column: 1 / -1;
+  }
+  .tuneHeadingRow {
+    padding-top: 96px;
+    padding-bottom: 96px;
   }
 }
 
-/* ---------- Mobile fine-tuning ---------- */
 @media (max-width: 600px) {
-  .hero {
-    padding-top: 64px;
+  .tuneContainer {
+    flex-direction: column;
   }
-  .projTitle,
-  .projFooter {
-    padding-inline: 2%;
-  }
-  .artGrid {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
-  .artFooter {
-    justify-content: center;
-  }
-  .footer {
+  .footerContainer {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 6px;
     padding-top: 64px;
+  }
+  .footerContainer > :nth-child(1),
+  .footerContainer > :nth-child(2),
+  .footerContainer > :nth-child(3) {
+    grid-column: auto;
+    text-align: left;
   }
 }
