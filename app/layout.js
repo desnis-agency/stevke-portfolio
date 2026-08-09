@@ -1,4 +1,5 @@
 import "./globals.css";
+import Noise from "./Noise";
 import AgentationDev from "./AgentationDev";
 
 export const metadata = {
@@ -12,6 +13,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         {children}
+        <Noise
+          patternSize={250}
+          patternScaleX={1}
+          patternScaleY={1}
+          patternRefreshInterval={2}
+          patternAlpha={15}
+        />
         <AgentationDev />
       </body>
     </html>

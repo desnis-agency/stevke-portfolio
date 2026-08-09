@@ -129,10 +129,12 @@ export default function Home() {
       </section>
 
       {/* ---------- Footer ---------- */}
-      <section className={styles.footerSection}>
+      <section>
         <div className={styles.footerContainer}>
-          <span>Stevan Stojanovic &copy; 2026</span>
-          <Clock />
+          <span className={styles.footerName}>Stevan Stojanovic &copy; 2026</span>
+          <div className={styles.footerClock}>
+            <Clock />
+          </div>
         </div>
       </section>
     </main>
