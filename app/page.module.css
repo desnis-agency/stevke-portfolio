@@ -24,12 +24,13 @@
 .heroContainer {
   composes: container;
   padding-top: 185px;
-  padding-bottom: 377px;
+  padding-bottom: 90px;
 }
 
 .heroName {
   grid-column: 3 / 4;
   line-height: 1.35;
+  white-space: nowrap;
 }
 
 .heroIntro {
@@ -208,7 +209,6 @@
 @media (max-width: 1023px) {
   .heroContainer {
     padding-top: 96px;
-    padding-bottom: 120px;
   }
   .heroName {
     grid-column: 1 / span 6;
