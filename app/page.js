@@ -92,7 +92,15 @@ export default function Home() {
             <p>
               We live in a world, which comes into life only through encounter.
               Feel free to contact me for a free{" "}
-              <span className={styles.cal}>Cal</span>-Conversation on your idea.
+              <a
+                className={styles.cal}
+                href="https://wa.me/381641137314"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Cal
+              </a>
+              -Conversation on your idea.
             </p>
           </div>
         </div>

@@ -218,6 +218,7 @@
 @media (max-width: 1023px) {
   .heroContainer {
     padding-top: 96px;
+    row-gap: 48px; /* space between the stacked name and intro columns */
   }
   .heroName {
     grid-column: 1 / span 6;
