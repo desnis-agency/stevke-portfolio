@@ -28,6 +28,7 @@ body {
   font-family: var(--font-sf), -apple-system, BlinkMacSystemFont, "SF Pro Display",
     "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 14px;
+  font-weight: 500;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
